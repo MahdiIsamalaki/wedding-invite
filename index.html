@@ -36,42 +36,122 @@
      .gallery{background:radial-gradient(circle at 50% 0,#fff 0,transparent 35%),#f3eedf}.gallery .title{color:#6b5834}.gallery .eyebrow,.caption{color:#a58a52}.slideshow{width:min(88vw,470px);aspect-ratio:3/4;border:8px solid #fffdf6;border-radius:0 0 48% 48%;outline:1px solid #c9aa69;outline-offset:8px;box-shadow:0 28px 60px #78674733;background:#e9efdf}.slide{background:#e9efdf}.dots{margin-top:34px}.dot{width:10px;height:10px;border-radius:50%;background:#d4c6a8}.dot.active{background:#a58a52;transform:scale(1.25)}
      .countdown{background:#fffdf6}.unit{border-radius:18px;border-color:#c9aa69;background:#fff;box-shadow:0 12px 24px #826e3820}.unit b{color:#6b5834}.unit span{color:#a58a52}.location{background:linear-gradient(#e9efdf,#fffdf6)}.address{background:#fffdf6;border-color:#a7b89b;color:#5d513a}.route{background:#6b5834}.route.neshan{background:#a58a52}.footer{background:radial-gradient(ellipse at 50% 15%,#a58a52 0,transparent 40%),linear-gradient(160deg,#786647,#443d30 70%)}.footer .names{color:#fff7df}.footer .title,.footer .eyebrow{color:#fff}
 
-.music-control{position:fixed;z-index:999;right:20px;bottom:max(20px,env(safe-area-inset-bottom));display:grid;width:52px;height:52px;place-items:center;padding:0;border:1px solid #c9aa69;border-radius:50%;background:rgba(0,0,0,.75);color:#fff;font:22px Arial,sans-serif;cursor:pointer;box-shadow:0 8px 24px #0003;transition:transform .18s ease,background .18s ease}.music-control:hover,.music-control:focus-visible{transform:scale(1.05);background:#5d513a}
+body.cover-active{overflow:hidden}
+#invitation{opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .85s ease,transform .85s ease}
+body.invitation-visible #invitation{opacity:1;transform:none;pointer-events:auto}
+.envelope-cover{position:fixed;inset:0;z-index:1001;display:grid;place-items:center;overflow:hidden;padding:28px 18px;background:radial-gradient(circle at 16% 14%,#c9aa6930 0,transparent 31%),radial-gradient(circle at 88% 86%,#a7b89b44 0,transparent 34%),#fffdf6;color:#5d513a;transition:opacity .8s ease,visibility 0s linear}
+.envelope-cover::before,.envelope-cover::after{content:"❋";position:absolute;z-index:0;color:#c9aa6944;font:clamp(112px,24vw,250px) var(--font-fa);pointer-events:none}
+.envelope-cover::before{top:-48px;right:-18px;transform:rotate(15deg)}
+.envelope-cover::after{bottom:-58px;left:-20px;transform:rotate(-12deg)}
+.envelope-cover__content{position:relative;z-index:1;width:min(100%,520px);text-align:center;animation:cover-rise .8s both}
+@keyframes cover-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.envelope-cover__eyebrow{margin:0 0 4px;color:#a58a52;font:20px var(--font-fa)}
+.envelope-cover__title{margin:0 0 26px;color:#5d513a;font:400 clamp(30px,7vw,46px)/1.6 var(--font-fa)}
+.envelope-trigger{display:grid;justify-items:center;gap:18px;width:100%;margin:0;padding:0;border:0;background:transparent;color:inherit;font-family:var(--font-fa);cursor:pointer}
+.envelope-trigger:focus-visible{outline:2px solid #a58a52;outline-offset:9px;border-radius:12px}
+.envelope{position:relative;display:block;width:min(84vw,420px);aspect-ratio:1.55;perspective:1100px;filter:drop-shadow(0 22px 32px #58483325)}
+.envelope__back{position:absolute;inset:0;z-index:0;border:1px solid #c9aa69;border-radius:12px;background:linear-gradient(145deg,#fffdf6,#e7e3d7);box-shadow:inset 0 0 0 8px #fff8}
+.envelope__paper{position:absolute;z-index:1;left:8%;right:8%;top:4%;height:91%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px 12px 30px;border:1px solid #d7c99c;background:#fffdf6;box-shadow:0 7px 18px #5d513a22;color:#5d513a;transition:transform .95s cubic-bezier(.2,.72,.2,1) .2s}
+.envelope__paper::before{content:"";position:absolute;inset:10px;border:1px solid #c9aa693d}
+.envelope__paper-mark{color:#c9aa69;font:28px var(--font-fa);line-height:1.2}
+.envelope__paper-title{font:400 clamp(22px,5vw,34px)/1.65 var(--font-fa)}
+.envelope__paper-date{color:#82765f;font:14px var(--font-fa)}
+.envelope__front{position:absolute;inset:0;z-index:3;border:1px solid #c9aa69;border-radius:12px;background:linear-gradient(145deg,#f3eedf,#dfe6d7);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);transition:transform .75s ease .25s,opacity .55s ease .25s}
+.envelope__flap{position:absolute;inset:0 0 auto;z-index:4;height:66%;clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(140deg,#d9ca9f,#a7b89b);transform-origin:top center;backface-visibility:hidden;transition:transform .85s cubic-bezier(.22,.74,.24,1)}
+.envelope__seal{position:absolute;z-index:5;left:50%;top:50%;display:grid;width:66px;height:66px;place-items:center;border:3px double #f7e8c1;border-radius:50%;background:radial-gradient(circle at 30% 30%,#d4b979,#8d6e3d);color:#fff7df;font:30px var(--font-fa);box-shadow:0 7px 16px #3b2c1a44;transform:translate(-50%,-50%);transition:opacity .3s ease,transform .45s ease}
+.envelope-trigger__label{color:#6b5834;font:17px var(--font-fa)}
+.envelope-cover__hint{margin:18px 0 0;color:#82765f;font:14px var(--font-fa)}
+.envelope-cover.is-opening{opacity:0;visibility:hidden;transition:opacity .8s ease 1.25s,visibility 0s linear 2.05s}
+.envelope-cover.is-opening .envelope__flap{transform:rotateX(180deg)}
+.envelope-cover.is-opening .envelope__paper{transform:translateY(-38%) scale(.98)}
+.envelope-cover.is-opening .envelope__front{transform:translateY(36%);opacity:0}
+.envelope-cover.is-opening .envelope__seal{opacity:0;transform:translate(-50%,-50%) scale(.65) rotate(-14deg)}
+.music-control{position:fixed;z-index:999;right:20px;bottom:max(20px,env(safe-area-inset-bottom));display:grid;width:52px;height:52px;place-items:center;padding:0;border:1px solid #c9aa69;border-radius:50%;background:rgba(0,0,0,.75);color:#fff;font:22px Arial,sans-serif;cursor:pointer;box-shadow:0 8px 24px #0003;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease,transform .18s ease,background .18s ease}
+.music-control.is-visible{opacity:1;visibility:visible;pointer-events:auto}
+.music-control:hover,.music-control:focus-visible{transform:scale(1.05);background:#5d513a}
+@media(max-width:420px){.envelope-cover__title{margin-bottom:20px}.envelope__seal{width:58px;height:58px}.envelope-trigger__label{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.envelope-cover,.envelope-cover.is-opening,#invitation,.envelope__paper,.envelope__front,.envelope__flap,.envelope__seal{transition-duration:.01ms!important;transition-delay:0s!important}.envelope-cover__content{animation-duration:.01ms!important}}
 
     :lang(en) { font-family: var(--font-en); }
 </style>
 </head>
-<body>
+<body class="cover-active">
+  <div class="envelope-cover" id="envelope-cover">
+    <div class="envelope-cover__content">
+      <p class="envelope-cover__eyebrow">به نام عشق</p>
+      <h1 class="envelope-cover__title">دعوت&#x200C;نامه عروسی</h1>
+      <button class="envelope-trigger" id="open-envelope" type="button" aria-label="باز کردن پاکت دعوت نامه">
+        <span class="envelope" aria-hidden="true">
+          <span class="envelope__back"></span>
+          <span class="envelope__paper">
+            <span class="envelope__paper-mark">❦</span>
+            <span class="envelope__paper-title">محمد و محبوبه</span>
+            <span class="envelope__paper-date">پنج&#x200C;شنبه، ۲۸ آبان ۱۴۰۵ · ساعت ۱۸</span>
+          </span>
+          <span class="envelope__front"></span>
+          <span class="envelope__flap"></span>
+          <span class="envelope__seal">❦</span>
+        </span>
+        <span class="envelope-trigger__label">برای باز کردن پاکت، روی مهر بزنید</span>
+      </button>
+      <p class="envelope-cover__hint">یک آغاز زیبا در انتظار شماست</p>
+    </div>
+  </div>
+  <main id="invitation" aria-hidden="true">
   <section class="section hero" id="home"><div class="frame"></div><div class="hero-content"><div class="seal">❦</div><div class="eyebrow">به نام عشق</div><h1 class="names">محمد و محبوبه</h1><p class="date">پنج&#x200C;شنبه، ۲۸ آبان ۱۴۰۵ · ساعت ۱۸</p><a class="enter" href="#story">برای دیدن دعوت&#x200C;نامه ↓</a></div></section>
   <section class="section story" id="story"><div class="card"><div class="eyebrow">آغازِ یک همراهی</div><div class="ornament">❦</div><h2 class="title">قصه&#x200C;ای از جنسِ ما</h2><p class="copy">از میانِ هزاران راه و هزاران اتفاق،<br>دل&#x200C;های ما یکدیگر را پیدا کردند؛<br>تا خانه&#x200C;ای بسازند از عشق، آرامش و امید.</p><div class="rule"></div><p class="copy">حالا در آستانهٔ شروعِ این فصلِ شیرین،<br>دستِ شما را به گرمی می&#x200C;فشاریم<br>تا در شبی که برایمان رنگِ خاطره می&#x200C;گیرد،<br>همراهِ لبخندها و شادیِ ما باشید.</p></div></section>
    <section class="section gallery" id="gallery"><div class="card"><div class="eyebrow">دو لحظهٔ ماندگار</div><h2 class="title">از آغازِ یک «ما»</h2><div class="slideshow" id="slideshow"><div class="slide active"><img src="assets/Pic.JPG" alt="محمد و محبوبه در مراسم عروسی"></div><div class="slide"><img src="assets/Ring.JPG" alt="حلقه ازدواج محمد و محبوبه"></div></div><div class="dots" id="dots"><button class="dot active" aria-label="عکس ۱"></button><button class="dot" aria-label="عکس ۲"></button></div><p class="caption" id="caption">لحظه&#x200C;ای که عشق، شکل خاطره گرفت.</p></div></section>
   <section class="section countdown"><div class="card"><div class="eyebrow">تا شبِ جشن</div><h2 class="title">شمارشِ لحظه&#x200C;ها</h2><div class="count-grid"><div class="unit"><b id="d">۰</b><span>روز</span></div><div class="unit"><b id="h">۰</b><span>ساعت</span></div><div class="unit"><b id="m">۰</b><span>دقیقه</span></div><div class="unit"><b id="s">۰</b><span>ثانیه</span></div></div><p class="small">تا شبی که حضورِ عزیزانمان، آن را کامل&#x200C;تر می&#x200C;کند.</p></div></section>
   <section class="section location" id="location"><div class="card"><div class="eyebrow">مقصدِ دیدار</div><h2 class="title">تالار قصر آریایی</h2><div class="ornament">❦</div><p class="address">کوچصفهان، کیلومتر ۴ جادهٔ لشت&#x200C;نشا،<br>تالار قصر آریایی</p><div class="route-links"><a class="route" target="_blank" rel="noopener" href="https://www.google.com/maps/place//@37.3076048,49.7939143,19.04z/data=!4m6!1m5!3m4!2zMzfCsDE4JzI3LjYiTiA0OcKwNDcnMzguMyJF!8m2!3d37.307657!4d49.793982!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D">مسیر با گوگل&#x200C;مپ</a><a class="route neshan" target="_blank" rel="noopener" href="https://neshan.org/maps/places/e1ee7e44f55a7ae424149aa12223784b#c37.308-49.799-15z-0p">مسیر با نشان</a></div></div></section>
   <footer class="section footer"><div class="card"><div class="ornament">♡ ❦ ♡</div><div class="eyebrow">با عشق</div><h2 class="title">زیباترین بخشِ این شب،<br>حضورِ شماست</h2><div class="names">محمد و محبوبه</div></div></footer>
+  </main>
   <audio id="invite-music" preload="none" loop src="https://kimiancards.ir/wp-content/uploads/2025/12/Arman-Garshasbi-_-Benshin-320.mp3"></audio>
   <button class="music-control" id="music-control" type="button" aria-label="پخش موسیقی" aria-pressed="false">▶</button>
   <script>
     const fa=n=>new Intl.NumberFormat('fa-IR').format(n);const target=new Date('2026-11-19T18:00:00+03:30');function tick(){let x=Math.max(0,target-Date.now());let a=[Math.floor(x/864e5),Math.floor(x%864e5/36e5),Math.floor(x%36e5/6e4),Math.floor(x%6e4/1e3)];['d','h','m','s'].forEach((id,i)=>document.getElementById(id).textContent=fa(a[i]))}tick();setInterval(tick,1000);const slides=[...document.querySelectorAll('.slide')],dots=[...document.querySelectorAll('.dot')],captions=['لحظه\u200Cای که عشق، شکل خاطره گرفت.','شکوه یک شروع سفید و روشن.'];let current=0,timer;function show(n){current=(n+slides.length)%slides.length;slides.forEach((x,i)=>x.classList.toggle('active',i===current));dots.forEach((x,i)=>x.classList.toggle('active',i===current));document.getElementById('caption').textContent=captions[current];clearInterval(timer);timer=setInterval(()=>show(current+1),4000)}dots.forEach((x,i)=>x.addEventListener('click',()=>show(i)));show(0);
     const music = document.getElementById("invite-music");
     const musicButton = document.getElementById("music-control");
-    musicButton.addEventListener("click", async () => {
-      if (music.paused) {
-        try {
-          await music.play();
-          musicButton.textContent = "⏸";
-          musicButton.setAttribute("aria-label", "توقف موسیقی");
-          musicButton.setAttribute("aria-pressed", "true");
-        } catch {
-          musicButton.textContent = "▶";
-          musicButton.setAttribute("aria-label", "پخش موسیقی");
-          musicButton.setAttribute("aria-pressed", "false");
-        }
-      } else {
-        music.pause();
-        musicButton.textContent = "▶";
-        musicButton.setAttribute("aria-label", "پخش موسیقی");
-        musicButton.setAttribute("aria-pressed", "false");
+    const envelopeCover = document.getElementById("envelope-cover");
+    const openEnvelopeButton = document.getElementById("open-envelope");
+    const invitation = document.getElementById("invitation");
+    let invitationOpened = false;
+
+    function setMusicState(isPlaying) {
+      musicButton.textContent = isPlaying ? "⏸" : "▶";
+      musicButton.setAttribute("aria-label", isPlaying ? "توقف موسیقی" : "پخش موسیقی");
+      musicButton.setAttribute("aria-pressed", String(isPlaying));
+    }
+
+    function playMusic() {
+      try {
+        const playback = music.play();
+        if (playback) playback.then(() => setMusicState(true)).catch(() => setMusicState(false));
+      } catch {
+        setMusicState(false);
       }
+    }
+
+    function openInvitation() {
+      if (invitationOpened) return;
+      invitationOpened = true;
+      envelopeCover.classList.add("is-opening");
+      document.body.classList.remove("cover-active");
+      document.body.classList.add("invitation-visible");
+      invitation.setAttribute("aria-hidden", "false");
+      musicButton.classList.add("is-visible");
+      playMusic();
+      window.setTimeout(() => envelopeCover.remove(), 2200);
+    }
+
+    function pauseMusic() {
+      music.pause();
+      setMusicState(false);
+    }
+
+    openEnvelopeButton.addEventListener("click", openInvitation);
+    musicButton.addEventListener("click", () => {
+      if (music.paused) playMusic();
+      else pauseMusic();
     });
   </script>
 </body>
